@@ -424,7 +424,7 @@ impl LightstreamerClient {
                                                 }
                                                 let encoded_params = serde_urlencoded::to_string(&params)?;
                                                 write_stream
-                                                    .send(Message::Text(format!("control\r\n{}", encoded_params)))
+                                                    .send(Message::Text(format!("control\r\n{}", encoded_params).into()))
                                                     .await?;
                                                 info!("Sent subscription request: '{}'", encoded_params);
                                             }
@@ -712,7 +712,7 @@ impl LightstreamerClient {
                                         params.push(("LS_protocol", Self::TLCP_VERSION));
                                         let encoded_params = serde_urlencoded::to_string(&params)?;
                                         write_stream
-                                            .send(Message::Text(format!("create_session\r\n{}\n", encoded_params)))
+                                            .send(Message::Text(format!("create_session\r\n{}\n", encoded_params).into()))
                                             .await?;
                                         self.make_log( Level::DEBUG, &format!("Sent create session request: '{}'", encoded_params) );
                                     },
